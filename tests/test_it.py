@@ -82,3 +82,31 @@ class Testget_writer(unittest.TestCase):
 
         t = transaction.get()
         self.assertIn(result, t._resources)
+
+
+class TestIt(unittest.TestCase):
+    def _makeSchema(self):
+        from whoosh.fields import Schema, TEXT
+        schema = Schema(title=TEXT, content=TEXT)
+        return schema
+
+    def setUp(self):
+        self.config = testing.setUp()
+        self.config.include('pyramid_whoosh')
+
+    def tearDown(self):
+        testing.tearDown()
+
+    def test_it(self):
+        from pyramid_whoosh.api import get_writer, get_index
+        schema = self._makeSchema()
+        request = testing.DummyRequest()
+        with TempDirectory() as d:
+            self.config.registry.settings["pyramid_whoosh.dummy.indexdir"] = d.path
+            self.config.add_schema("dummy", schema)
+            writer = get_writer(request, "dummy")
+            writer.add(dict(title=u"this is dummy",
+                            content=u"dummy content"))
+            import transaction
+            transaction.commit()
+            get_index(request, "dummy").close()

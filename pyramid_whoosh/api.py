@@ -15,3 +15,8 @@ def get_writer(request, name):
     dm = WhooshDataManager(writer)
     t.join(dm)
     return dm
+
+
+def get_searcher(request, name):
+    index = get_index(request, name)
+    return index.searcher()
