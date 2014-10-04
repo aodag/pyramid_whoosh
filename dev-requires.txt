@@ -1,0 +1,5 @@
+-r requirements.txt
+-f wheelhouse
+testfixtures==4.0.2
+pyramid-tm==0.7
+wheel==0.24.0

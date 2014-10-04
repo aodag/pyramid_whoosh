@@ -1,0 +1,10 @@
+PasteDeploy==1.5.2
+WebOb==1.4
+Whoosh==2.6.0
+pyramid==1.5.1
+repoze.lru==0.6
+transaction==1.4.3
+translationstring==1.1
+venusian==1.0
+zope.deprecation==4.1.1
+zope.interface==4.1.1
